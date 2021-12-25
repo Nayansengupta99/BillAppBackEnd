@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nayan.model.BillDTO;
 import com.nayan.model.BillingModel;
 import com.nayan.repository.BillingRepository;
 
@@ -20,24 +21,28 @@ public class BillingService {
 		return billingRepo.save(model);
 
 	}
-	
-	public List<BillingModel> getAllBills(){
+
+	public List<BillingModel> getAllBills() {
 		return billingRepo.findAll();
-		
+
 	}
-	
-	public List<BillingModel> getBillsById(int billId){
-		List<BillingModel> l=getAllBills();
-		List<BillingModel> b=new ArrayList<>();
-		for(BillingModel m: l) {
-			if(m.getBillId()==billId) {
+
+	public BillDTO getBillsById(int billId) {
+		List<BillingModel> l = getAllBills();
+
+		float totalcost = 0.00f;
+		List<BillingModel> b = new ArrayList<>();
+		for (BillingModel m : l) {
+			if (m.getBillId() == billId) {
 				b.add(m);
+				totalcost += m.getPrice();
+
 			}
 		}
-		return b;
-		
+		BillDTO d = new BillDTO(b, totalcost);
+
+		return d;
+
 	}
-	
-	
 
 }

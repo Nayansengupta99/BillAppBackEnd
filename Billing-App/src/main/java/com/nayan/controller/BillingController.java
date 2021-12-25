@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nayan.model.BillDTO;
 import com.nayan.model.BillingModel;
 import com.nayan.service.BillingService;
 
@@ -28,8 +29,8 @@ public class BillingController {
 	public List<BillingModel> getAll(){
 		return billService.getAllBills();
 	}
-	@GetMapping("/bill/{billId}")
-	public List<BillingModel> getAllById(@PathVariable int billId){
+	@GetMapping("/total/{billId}")
+	public BillDTO getAllById(@PathVariable int billId){
 		return billService.getBillsById(billId);
 	}
 
