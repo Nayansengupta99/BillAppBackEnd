@@ -17,9 +17,12 @@ public class BillingService {
 	private BillingRepository billingRepo;
 
 	public BillingModel saveBill(BillingModel model) {
-
 		return billingRepo.save(model);
+	}
 
+	public String deleteBillById(long id) {
+		billingRepo.deleteById(id);
+		return "Deletion successfull for billId " + id;
 	}
 
 	public List<BillingModel> getAllBills() {

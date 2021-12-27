@@ -25,13 +25,19 @@ public class BillingController {
 	public BillingModel save(@RequestBody BillingModel model) {
 		return billService.saveBill(model);
 	}
+
 	@GetMapping("/")
-	public List<BillingModel> getAll(){
+	public List<BillingModel> getAll() {
 		return billService.getAllBills();
 	}
+
 	@GetMapping("/total/{billId}")
-	public BillDTO getAllById(@PathVariable int billId){
+	public BillDTO getAllById(@PathVariable int billId) {
 		return billService.getBillsById(billId);
+	}
+
+	public String deleteBillById(@PathVariable long id) {
+		return billService.deleteBillById(id);
 	}
 
 }
