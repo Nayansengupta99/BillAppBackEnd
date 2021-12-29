@@ -3,6 +3,7 @@ package com.nayan.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,7 +36,8 @@ public class BillingController {
 	public BillDTO getAllById(@PathVariable int billId) {
 		return billService.getBillsById(billId);
 	}
-
+	
+	@DeleteMapping("/delete/{id}")
 	public String deleteBillById(@PathVariable long id) {
 		return billService.deleteBillById(id);
 	}

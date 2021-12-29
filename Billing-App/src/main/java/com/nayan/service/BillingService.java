@@ -22,7 +22,7 @@ public class BillingService {
 
 	public String deleteBillById(long id) {
 		billingRepo.deleteById(id);
-		return "Deletion successfull for billId " + id;
+		return "Deletion successfull for productId " + id;
 	}
 
 	public List<BillingModel> getAllBills() {
