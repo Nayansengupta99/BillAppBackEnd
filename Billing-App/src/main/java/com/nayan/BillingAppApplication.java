@@ -17,9 +17,10 @@ public class BillingAppApplication {
 //		SpringApplication.run(BillingAppApplication.class, args);
 
 		Properties props = new Properties();
-		String mongoDBUrl = "mongodb+srv://nayan97:" + System.getenv("MONGOPASS")
+		String mongoPass = System.getenv("MONGOPASS");
+		String mongoDBUrl = "mongodb+srv://nayan97:" + mongoPass
 				+ "@cluster0.cgcpm.mongodb.net/bill?retryWrites=true&w=majority";
-		props.put("server.port", "8080");
+		props.put("server.port", "8081");
 		props.put("spring.data.mongodb.uri", mongoDBUrl);
 		props.put("spring.data.mongodb.databasee", "bill");
 		props.put("spring.jpa.defer-datasource-initialization", "true");

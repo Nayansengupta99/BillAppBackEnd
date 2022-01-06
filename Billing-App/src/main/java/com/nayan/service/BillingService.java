@@ -2,6 +2,7 @@ package com.nayan.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,20 +31,13 @@ public class BillingService {
 
 	}
 
+
 	public BillDTO getBillsById(int billId) {
+		
 		List<BillingModel> l = getAllBills();
-
-		float totalcost = 0.00f;
-		List<BillingModel> b = new ArrayList<>();
-		for (BillingModel m : l) {
-			if (m.getBillId() == billId) {
-				b.add(m);
-				totalcost += m.getPrice();
-
-			}
-		}
-		BillDTO d = new BillDTO(b, totalcost);
-
+		List<BillingModel> b=l.parallelStream().filter(m -> m.getBillId() == billId).collect(Collectors.toList());
+		double totalcost = l.parallelStream().filter(m -> m.getBillId() == billId).mapToDouble(o -> o.getPrice()).sum();
+		BillDTO d = new BillDTO(b, Double.valueOf(totalcost).floatValue());
 		return d;
 
 	}
