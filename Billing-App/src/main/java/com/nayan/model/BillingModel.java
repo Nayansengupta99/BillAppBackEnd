@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
@@ -23,8 +24,11 @@ public class BillingModel {
 //	private int billId;
 //	@OneToMany(mappedBy = "bill")
 //	private List<BillDTO> list;
+	
+	 @Transient
+	 public static final String SEQUENCE_NAME = "users_sequence";
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private long id;
 	private int billId;
 	private int price;
