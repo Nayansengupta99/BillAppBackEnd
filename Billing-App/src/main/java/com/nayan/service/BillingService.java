@@ -6,6 +6,7 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,24 @@ public class BillingService {
 		BillDTO d = new BillDTO(b, Double.valueOf(totalcost).floatValue());
 		return d;
 
+	}
+	
+	public BillingModel updateBillById(long id,BillingModel model) {
+		BillingModel m=billingRepo.findById(id).get();
+		
+		if(model!=null) {
+			m.setBillId(model.getBillId());
+			m.setName(model.getName());
+			m.setPrice(model.getPrice());
+			
+		}
+		return billingRepo.save(m);
+		
+		
+	}
+	
+	public BillingModel getBillById(long id) {
+		return billingRepo.findById(id).get();
 	}
 
 }

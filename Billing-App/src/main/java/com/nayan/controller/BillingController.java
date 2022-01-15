@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +29,11 @@ public class BillingController {
 	public BillingModel save(@RequestBody BillingModel model) {
 		return billService.saveBill(model);
 	}
+	
+	@GetMapping("/{id}")
+	public BillingModel getBillById(@PathVariable long id) {
+		return billService.getBillById(id);
+	}
 
 	@GetMapping("/")
 	public List<BillingModel> getAll() {
@@ -37,6 +43,10 @@ public class BillingController {
 	@GetMapping("/total/{billId}")
 	public BillDTO getAllById(@PathVariable int billId) {
 		return billService.getBillsById(billId);
+	}
+	@PutMapping("/update/{id}")
+	public BillingModel updateBillById(@PathVariable long id,@RequestBody BillingModel model) {
+        return billService.updateBillById(id, model);		
 	}
 	
 	@DeleteMapping("/delete/{id}")
