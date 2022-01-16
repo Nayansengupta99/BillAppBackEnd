@@ -3,6 +3,8 @@ package com.nayan.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,32 +28,35 @@ public class BillingController {
 	private BillingService billService;
 
 	@PostMapping("/save")
-	public BillingModel save(@RequestBody BillingModel model) {
-		return billService.saveBill(model);
+	public ResponseEntity<BillingModel> save(@RequestBody BillingModel model) {
+		return new ResponseEntity<BillingModel>(billService.saveBill(model), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{id}")
-	public BillingModel getBillById(@PathVariable long id) {
-		return billService.getBillById(id);
+	public ResponseEntity<BillingModel> getBillById(@PathVariable long id) {
+		return new ResponseEntity<BillingModel>(billService.getBillById(id), HttpStatus.OK);
 	}
 
 	@GetMapping("/")
-	public List<BillingModel> getAll() {
-		return billService.getAllBills();
+	public ResponseEntity<List<BillingModel>> getAll() {
+		return new ResponseEntity<List<BillingModel>>(billService.getAllBills(), HttpStatus.OK);
 	}
 
 	@GetMapping("/total/{billId}")
-	public BillDTO getAllById(@PathVariable int billId) {
-		return billService.getBillsById(billId);
+	public ResponseEntity<BillDTO> getAllById(@PathVariable int billId) {
+		return new ResponseEntity<BillDTO>(billService.getBillsById(billId), HttpStatus.OK);
 	}
+
 	@PutMapping("/update/{id}")
-	public BillingModel updateBillById(@PathVariable long id,@RequestBody BillingModel model) {
-        return billService.updateBillById(id, model);		
+	public ResponseEntity<BillingModel> updateBillById(@PathVariable long id, @RequestBody BillingModel model) {
+		return new ResponseEntity<BillingModel>(billService.updateBillById(id, model), HttpStatus.OK);
+
 	}
-	
+
 	@DeleteMapping("/delete/{id}")
-	public String deleteBillById(@PathVariable long id) {
-		return billService.deleteBillById(id);
+	public ResponseEntity<String> deleteBillById(@PathVariable long id) {
+		return new ResponseEntity<String>(billService.deleteBillById(id), HttpStatus.OK);
+
 	}
 
 }
