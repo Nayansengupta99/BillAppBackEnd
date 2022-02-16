@@ -4,9 +4,10 @@ import static org.springframework.data.mongodb.core.FindAndModifyOptions.options
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,8 @@ public class BillingService {
 
 	public BillingModel saveBill(BillingModel model) {
 		model.setId(generateSequence(BillingModel.SEQUENCE_NAME));
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");  
+	    model.setCreatedDate(formatter.format(new Date()));
 		return billingRepo.save(model);
 	}
 
@@ -50,11 +53,11 @@ public class BillingService {
 
 	}
 
-	public BillDTO getBillsById(int billId) {
+	public BillDTO getBillsById(int customerId) {
 
 		List<BillingModel> l = getAllBills();
-		List<BillingModel> b = l.parallelStream().filter(m -> m.getBillId() == billId).collect(Collectors.toList());
-		double totalcost = l.parallelStream().filter(m -> m.getBillId() == billId).mapToDouble(o -> o.getPrice()).sum();
+		List<BillingModel> b = l.parallelStream().filter(m -> m.getCustomerId() == customerId).collect(Collectors.toList());
+		double totalcost = l.parallelStream().filter(m -> m.getCustomerId() == customerId).mapToDouble(o -> o.getPrice()).sum();
 		BillDTO d = new BillDTO(b, Double.valueOf(totalcost).floatValue());
 		return d;
 
@@ -64,7 +67,7 @@ public class BillingService {
 		BillingModel m=billingRepo.findById(id).get();
 		
 		if(model!=null) {
-			m.setBillId(model.getBillId());
+			m.setCustomerId(model.getCustomerId());
 			m.setName(model.getName());
 			m.setPrice(model.getPrice());
 			

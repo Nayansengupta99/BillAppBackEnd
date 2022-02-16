@@ -1,5 +1,7 @@
 package com.nayan.model;
 
+import java.util.Date;
+
 import javax.persistence.Id;
 
 import org.springframework.data.annotation.Transient;
@@ -25,7 +27,8 @@ public class BillingModel {
 	@Id
 
 	private long id;
-	private int billId;
+	private int customerId;
 	private float price;
 	private String name;
+	private String createdDate;
 }

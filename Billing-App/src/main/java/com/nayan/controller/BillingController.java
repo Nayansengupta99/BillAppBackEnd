@@ -21,12 +21,16 @@ import com.nayan.service.BillingService;
 
 @RestController
 @RequestMapping("bill")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins ="https://makeyourownlist.herokuapp.com",maxAge = 3600)
 public class BillingController {
 
 	@Autowired
 	private BillingService billService;
-
+	
+	@GetMapping("/test")
+	public ResponseEntity<?> test() {
+		return new ResponseEntity<String>("Wworking Successfully", HttpStatus.OK);
+	}
 	@PostMapping("/save")
 	public ResponseEntity<BillingModel> save(@RequestBody BillingModel model) {
 		return new ResponseEntity<BillingModel>(billService.saveBill(model), HttpStatus.OK);
